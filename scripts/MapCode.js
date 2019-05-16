@@ -4,9 +4,10 @@ require([
   "esri/widgets/Home",
   "esri/widgets/Expand",
   "esri/widgets/Legend",
+  "esri/widgets/Search",
   "dojo/domReady!"
 ], function(
-  Map, MapView, Home, Expand, Legend
+  Map, MapView, Home, Expand, Legend, Search
 ) {
 
   var map = new Map({
@@ -24,7 +25,10 @@ require([
   var homeBtn = new Home({
     view: view
   });
-  view.ui.add(homeBtn, "top-left");
+  view.ui.add(homeBtn, {
+    position: "top-left",
+    index: 0
+  });
 
   const legendExpand = new Expand({
     view: view,
@@ -35,4 +39,13 @@ require([
     collapseTooltip: "Hide Legend"
   });
   view.ui.add(legendExpand, "top-left");
+
+  var searchWidget = new Search({
+    container: "searchWidgetContainer",
+    view: view,
+    maxSuggestions: 6,
+    locationEnabled: true,
+    sources: []  // Add additional search sources here, includes ESRI ArcGIS World Geocoding Service by default
+  });
+
 });
